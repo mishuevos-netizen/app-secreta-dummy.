@@ -1,57 +1,65 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-
-<meta name="viewport" content="width=device-width,
-
-initial-scale=1.0">
-<title>🔐 App con Variables de Entorno</title>
-<style>
-body {
-font-family: 'Comic Sans MS', cursive;
-text-align: center;
-margin: 50px;
-background-color: #f0f8ff;
-}
-h1 {color: #ff6b6b;
-}
-button {
-background-color: #4CAF50;
-color: white;
-border: none;
-padding: 15px 30px;
-border-radius: 10px;
-cursor: pointer;
-font-size: 18px;
-margin: 10px;
-}
-button:hover {
-background-color: #45a049;
-}
-#mensaje-secreto {
-margin-top: 20px;
-font-size: 20px;
-color: #9c27b0;
-font-weight: bold;
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🚀 App con Variables de Entorno</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            margin: 50px;
+            background-color: #f0f8ff;
+        }
+        h1 {
+            color: #ff6b6b;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 18px;
+            margin: 10px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #mensaje-secreto {
+            margin-top: 20px;
+            font-size: 20px;
+            color: #9c27b0;
+            font-weight: bold;
+        }
+        .info {
+            background: #e3f2fd;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 20px;
+            font-size: 14px;
+        }
+    </style>
 </head>
 <body>
-<h1>🔐 ¡Bienvenido a la App Secreta! 🔐</h1>
-<p>Haz clic para revelar el mensaje oculto:</p>
-<button onclick="mostrarMensaje()">🔓 Revelar Mensaje</button>
-<p id="mensaje-secreto"></p>
-<script>
-// Este valor vendrá de las variables de entorno
+    <h1>🔐 ¡Bienvenido a la App Secreta!</h1>
+    <p>Haz clic para revelar el mensaje oculto:</p>
+    <button onclick="mostrarMensaje()">🔓 Revelar Mensaje</button>
+    <p id="mensaje-secreto"></p>
+    
+    <div class="info">
+        🔍 Esta app muestra cómo funcionan las variables de entorno
+    </div>
 
-const MENSAJE_SECRETO =
-process.env.REACT_APP_MENSAJE_SECRETO || "¡Lo lograste! 🎉 (Pero
-esto es un valor por defecto)";
-function mostrarMensaje() {
-document.getElementById('mensaje-secreto').textContent =
-
-MENSAJE_SECRETO;
-}
-</script>
+    <script>
+        // ESTA ES LA PARTE IMPORTANTE QUE LEE LA VARIABLE DE ENTORNO
+        function mostrarMensaje() {
+            // En Netlify, esta variable se inyecta automáticamente
+            const mensaje = "REACT_APP_MENSAJE_SECRETO" in window ? window.REACT_APP_MENSAJE_SECRETO : "¡Eres un crack! 🎉";
+            
+            document.getElementById('mensaje-secreto').textContent = mensaje;
+        }
+    </script>
 </body>
+</html>
