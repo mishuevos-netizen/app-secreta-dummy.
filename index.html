@@ -48,15 +48,11 @@
     <button onclick="mostrarMensaje()">🔓 Revelar Mensaje</button>
     <p id="mensaje-secreto"></p>
     
-    <div class="info">
-        🔍 Esta app muestra cómo funcionan las variables de entorno
-    </div>
-
     <script>
         // ESTA ES LA PARTE IMPORTANTE QUE LEE LA VARIABLE DE ENTORNO
         function mostrarMensaje() {
             // En Netlify, esta variable se inyecta automáticamente
-            const mensaje = "REACT_APP_MENSAJE_SECRETO" in window ? window.REACT_APP_MENSAJE_SECRETO : "¡Eres un crack! 🎉";
+            const mensaje = "REACT_APP_MENSAJE_SECRETO" in window ? window.REACT_APP_MENSAJE_SECRETO : "";
             
             document.getElementById('mensaje-secreto').textContent = mensaje;
         }
