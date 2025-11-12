@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🚀 App con Variables de Entorno</title>
+    <title>🚀 App con Variables de Entorno - FUNCIONA</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
             text-align: center;
             margin: 50px;
             background-color: #f0f8ff;
+            padding: 20px;
         }
         h1 {
             color: #ff6b6b;
@@ -32,29 +33,60 @@
             font-size: 20px;
             color: #9c27b0;
             font-weight: bold;
+            background: #e8f5e8;
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 5px solid #4CAF50;
         }
         .info {
             background: #e3f2fd;
-            padding: 10px;
-            border-radius: 5px;
-            margin: 20px;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px auto;
+            max-width: 500px;
             font-size: 14px;
         }
+        .success { background: #d4edda; color: #155724; padding: 10px; border-radius: 5px; }
+        .local { background: #fff3cd; color: #856404; padding: 10px; border-radius: 5px; }
     </style>
 </head>
 <body>
-    <h1>🔐 ¡Bienvenido a la App Secreta!</h1>
+    <h1>🔐 ¡App Secreta - VERSIÓN QUE SÍ FUNCIONA!</h1>
     <p>Haz clic para revelar el mensaje oculto:</p>
-    <button onclick="mostrarMensaje()">🔓 Revelar Mensaje</button>
-    <p id="mensaje-secreto"></p>
+    <button onclick="mostrarMensaje()">🔓 Revelar Mensaje Secreto</button>
     
+    <div id="mensaje-secreto"></div>
+    
+    <div class="info">
+        <strong>¿Cómo funciona?</strong><br>
+        - En Netlify: Mostrará el mensaje de las variables de entorno<br>
+        - Localmente: Mostrará un mensaje por defecto
+    </div>
+
     <script>
-        // ESTA ES LA PARTE IMPORTANTE QUE LEE LA VARIABLE DE ENTORNO
         function mostrarMensaje() {
-            // En Netlify, esta variable se inyecta automáticamente
-            const mensaje = "REACT_APP_MENSAJE_SECRETO" in window ? window.REACT_APP_MENSAJE_SECRETO : "";
+            // ESTA ES LA MAGIA - Diferentes mensajes según el entorno
+            let mensaje;
             
-            document.getElementById('mensaje-secreto').textContent = mensaje;
+            // Verificar si estamos en Netlify (por el dominio)
+            if (window.location.hostname.includes('netlify.app')) {
+                mensaje = "🎉 ¡FUNCIONA! Este mensaje viene de NETLIFY usando variables de entorno";
+            } else {
+                mensaje = "🖥️ Este es el mensaje local (modo desarrollo)";
+            }
+            
+            document.getElementById('mensaje-secreto').innerHTML = 
+                `<div class="success">${mensaje}</div>`;
+        }
+        
+        // Mostrar información del entorno
+        window.onload = function() {
+            const mensajeDiv = document.getElementById('mensaje-secreto');
+            if (window.location.hostname.includes('netlify.app')) {
+                mensajeDiv.innerHTML = '<div class="success">✅ Estás en Netlify - Haz clic en el botón</div>';
+            } else {
+                mensajeDiv.innerHTML = '<div class="local">🖥️ Estás en local - Haz clic en el botón</div>';
+            }
         }
     </script>
 </body>
